@@ -6,7 +6,7 @@ Using Demo_v02 and Demo_viz_v02 to get started.
 The following figures show visualizations of some mechanical structures via topology optimization.
 
 **Visualization 1:**
-![viz1](https://github.com/wayXing/SharedGP/blob/master/viz.png)
+![viz1](https://github.com/wayXing/SharedGP/blob/main/viz.png)
 
 **Visualization 2:**
-![viz1](https://github.com/wayXing/SharedGP/blob/master/viz2.png)
+![viz1](https://github.com/wayXing/SharedGP/blob/main/viz2.png)
