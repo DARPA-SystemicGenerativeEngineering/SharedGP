@@ -93,14 +93,14 @@ for k=1:nmod
     model.stat.eta_var{k} = model.dim + sum(model.stat.eta_mean{k}.^2,2)';
 end
 %% main
-    
+
 fastDerivativeCheck(@(params) log_evidence_share(params,kerType, a0, b0, rank, yTr,model), params)
 
 
 nIte = 100;
 opt = [];
-opt.MaxIter = 1;
-opt.MaxFunEvals = 10000;
+opt.MaxIter = 8;
+opt.MaxFunEvals = 50000;
 
 for i = 1:nIte
     U = reshape(params(1:N*rank), N, rank);
@@ -124,6 +124,11 @@ for i = 1:length(D)
     Sigma{i} = 1/bta{i}*eye(N) + ker_func(U,ker_params{i});
     Knn{i} = ker_cross(U, U, ker_params{i});
     train_pred{i} = Knn{i}*(Sigma{i}\yTr{i});
+    
+%     sigma_r2{i} = diag(yTr{i}'*(Sigma{i}\yTr{i})/N);
+%     for kk = 1:size(yTr{i},2)
+%         s2_pred{i}(:,kk) = sigma_r2{i}(kk)*(1 + 1/bta{i}+ ker_params{i}.sigma- diag(Knn{i}*(Sigma{i}\Knn{i}')))
+%     end
 
 end
 %     model = [];
@@ -134,6 +139,8 @@ model.params = params;
 model.kerType = kerType;
 model.train_pred = train_pred;
 model.yTr = yTr;
+% model.sigma_r2 = sigma_r2;
+% model.s2_pred = s2_pred;
     
 end
 

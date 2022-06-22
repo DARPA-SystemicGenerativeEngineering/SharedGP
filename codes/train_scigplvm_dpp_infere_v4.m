@@ -80,8 +80,8 @@ end
 
     nIte = 100;
     opt = [];
-    opt.MaxIter = 3;
-    opt.MaxFunEvals = 10000;
+    opt.MaxIter = 6;
+    opt.MaxFunEvals = 20000;
     
     for i = 1:nIte
         U_all = reshape(params(1:N_total*rank), N_total, rank);
@@ -115,6 +115,13 @@ end
         Knn{i} = ker_cross(U_star, U, ker_params{i});
         y_star{i} = Knn{i}*(Sigma{i}\yTr{i}(1:N,:));
         
+%         sigma_r2{i} = diag(yTr{i}(1:N,:)'*(Sigma{i}\yTr{i}(1:N,:))/N)* ker_params{i}.sigma;
+%         for kk = 1:size(yTr{i},2)
+%             s2_pred{i}(:,kk) = sigma_r2{i}(kk)*(1 + 1/bta{i} - diag(Knn{i}*(Sigma{i}\Knn{i}'))/ker_params{i}.sigma);
+%         end
+        
+        aa= 0;
+        
     end
     
 %     model = [];
@@ -127,6 +134,8 @@ end
     model.yTr = yTr;
     model.y_star = y_star;
     model.u_star = U_star;
+%     model.s2_pred = s2_pred;
+%     model.sigma_r2 = sigma_r2;
     
 end
 
